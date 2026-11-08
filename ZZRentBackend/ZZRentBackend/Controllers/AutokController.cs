@@ -56,5 +56,28 @@ namespace ZZRent.Controllers
 
             return Ok(auto);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateAutoDTO modositottAuto)
+        {
+            var auto = await context.Autok.FindAsync(id);
+
+            if (auto == null)
+            {
+                return NotFound("A módosítani kívánt autó nem található!");
+            }
+
+            auto.marka = modositottAuto.marka;
+            auto.modell = modositottAuto.modell;
+            auto.evjarat = modositottAuto.evjarat;
+            auto.napi_ar = modositottAuto.napi_ar;
+            auto.uzemanyag = modositottAuto.uzemanyag;
+            auto.kategoria = modositottAuto.kategoria;
+            auto.elerheto = modositottAuto.elerheto;
+
+            await context.SaveChangesAsync();
+
+            return Ok(auto);
+        }
     }
 }
