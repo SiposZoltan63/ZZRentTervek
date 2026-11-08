@@ -36,5 +36,20 @@ namespace ZZRent.Controllers
 
             return Ok(sofor);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddSoforDTO ujSofor)
+        {
+            var sofor = new Sofor
+            {
+                nev = ujSofor.nev,
+                telefonszam = ujSofor.telefonszam
+            };
+
+            context.Soforok.Add(sofor);
+            await context.SaveChangesAsync();
+
+            return Ok(sofor);
+        }
     }
 }
