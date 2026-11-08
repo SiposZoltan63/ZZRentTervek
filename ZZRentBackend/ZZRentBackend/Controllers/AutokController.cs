@@ -36,5 +36,25 @@ namespace ZZRent.Controllers
 
             return Ok(auto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddAutoDTO ujAuto)
+        {
+            var auto = new Auto
+            {
+                marka = ujAuto.marka,
+                modell = ujAuto.modell,
+                evjarat = ujAuto.evjarat,
+                napi_ar = ujAuto.napi_ar,
+                uzemanyag = ujAuto.uzemanyag,
+                kategoria = ujAuto.kategoria,
+                elerheto = ujAuto.elerheto
+            };
+
+            context.Autok.Add(auto);
+            await context.SaveChangesAsync();
+
+            return Ok(auto);
+        }
     }
 }
