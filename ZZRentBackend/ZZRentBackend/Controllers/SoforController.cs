@@ -69,5 +69,21 @@ namespace ZZRent.Controllers
 
             return Ok(sofor);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var sofor = await context.Soforok.FindAsync(id);
+
+            if (sofor == null)
+            {
+                return NotFound("A törölni kívánt sofőr nem található!");
+            }
+
+            context.Soforok.Remove(sofor);
+            await context.SaveChangesAsync();
+
+            return Ok("A sofőr sikeresen törölve!");
+        }
     }
 }
