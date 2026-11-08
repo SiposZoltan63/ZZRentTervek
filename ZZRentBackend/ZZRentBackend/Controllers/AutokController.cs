@@ -79,5 +79,21 @@ namespace ZZRent.Controllers
 
             return Ok(auto);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var auto = await context.Autok.FindAsync(id);
+
+            if (auto == null)
+            {
+                return NotFound("A törölni kívánt autó nem található!");
+            }
+
+            context.Autok.Remove(auto);
+            await context.SaveChangesAsync();
+
+            return Ok("Az autó sikeresen törölve!");
+        }
     }
 }
