@@ -51,5 +51,23 @@ namespace ZZRent.Controllers
 
             return Ok(sofor);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UpdateSoforDTO modositottSofor)
+        {
+            var sofor = await context.Soforok.FindAsync(id);
+
+            if (sofor == null)
+            {
+                return NotFound("A módosítani kívánt sofőr nem található!");
+            }
+
+            sofor.nev = modositottSofor.nev;
+            sofor.telefonszam = modositottSofor.telefonszam;
+
+            await context.SaveChangesAsync();
+
+            return Ok(sofor);
+        }
     }
 }
